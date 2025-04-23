@@ -112,11 +112,12 @@ const app = createApp({
                 }
             } else {
                 // 可选：添加一些初始示例数据
-                // this.bookList = [
-                //     { id: 1, title: '三体', author: '刘慈欣', rating: 5, status: 'read' },
-                //     { id: 2, title: '活着', author: '余华', rating: 4, status: 'unread' },
-                // ];
-                // this.nextId = 3;
+                this.bookList = [
+                    { id: 1, title: '三体', author: '刘慈欣', rating: 5, status: 'read' },
+                    { id: 2, title: '活着', author: '余华', rating: 4, status: 'unread' },
+                    { id: 3, title: '百年孤独', author: '加西亚·马尔克斯', rating: 5, status: 'unread' },
+                ];
+                this.nextId = 4; // 更新 nextId 以便接下来的添加操作
             }
         },
         // 显示添加表单
