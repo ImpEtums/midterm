@@ -33,7 +33,7 @@
                         <option value="read">已读</option>
                     </select>
                 </div>
-                <div> <!-- 添加读后感输入区域 -->
+                <div> <!-- 确认这部分存在且 v-model 正确 -->
                     <label for="review">读后感:</label>
                     <textarea id="review" v-model.trim="currentBook.review" rows="4"></textarea>
                 </div>

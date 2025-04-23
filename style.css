@@ -223,10 +223,10 @@ h1 {
 }
 
 .book-actions button:first-child { /* 切换状态按钮 */
-    background-color: #ffab91; /* 浅珊瑚色/橙色 */
+    background-color: #a1887f;
 }
 .book-actions button:first-child:hover {
-    background-color: #ff8a65;
+    background-color: #8d6e63;
 }
 
 .book-actions button:nth-child(2) { /* 编辑按钮 */

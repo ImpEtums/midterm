@@ -11,7 +11,8 @@ const BookItem = {
                 <p>作者: {{ book.author }}</p>
                 <p>评分: {{ book.rating }}/5</p>
                 <p>状态: <span class="status-text">{{ book.status === 'read' ? '已读' : '未读' }}</span></p>
-                <p v-if="book.review" class="book-review">读后感: {{ book.review }}</p> // 添加读后感显示
+                <!-- 确认这行存在，v-if 会在 review 为空字符串时不显示 -->
+                <p v-if="book.review" class="book-review">读后感: {{ book.review }}</p>
             </div>
             <div class="book-actions">
                 <button @click="$emit('toggle-status', book.id)">
@@ -34,7 +35,7 @@ const app = createApp({
             bookList: [],
             showForm: false,
             isEditing: false,
-            currentBook: this.getEmptyBook(),
+            currentBook: this.getEmptyBook(), // 确保调用了 getEmptyBook
             nextId: 1, // 用于生成简单的唯一ID
             searchTerm: '',
             filterStatus: 'all', // 'all', 'read', 'unread'
@@ -98,7 +99,7 @@ const app = createApp({
     methods: {
         // 获取空书籍对象模板
         getEmptyBook() {
-            // 添加 review 字段
+            // 确认返回的对象包含 review: ''
             return { id: null, title: '', author: '', rating: 3, status: 'unread', review: '' };
         },
         // 加载数据
@@ -106,32 +107,32 @@ const app = createApp({
             const savedBooks = localStorage.getItem('myBookList');
             if (savedBooks) {
                 this.bookList = JSON.parse(savedBooks);
-                // 确保旧数据也有 review 字段
+                // 确保旧数据也有 review 字段 (使用 hasOwnProperty 更严谨)
                 this.bookList.forEach(book => {
-                    if (book.review === undefined) {
+                    if (!book.hasOwnProperty('review')) {
                         book.review = '';
                     }
                 });
-                // 找到最大的ID，确保新ID不重复
-                if (this.bookList.length > 0) {
-                    this.nextId = Math.max(...this.bookList.map(b => b.id)) + 1;
-                } else {
-                    this.nextId = 1;
-                }
             } else {
-                // 可选：添加一些初始示例数据
+                // 添加更多初始示例数据和读后感
                 this.bookList = [
-                    // 添加 review 字段
-                    { id: 1, title: '三体', author: '刘慈欣', rating: 5, status: 'read', review: '非常震撼的科幻巨作！' },
-                    { id: 2, title: '活着', author: '余华', rating: 4, status: 'unread', review: '' },
+                    { id: 1, title: '三体', author: '刘慈欣', rating: 5, status: 'read', review: '非常震撼的科幻巨作，对宇宙和人性的深刻思考。' },
+                    { id: 2, title: '活着', author: '余华', rating: 4, status: 'read', review: '文字朴实，情感真挚，讲述了小人物在大时代下的坚韧。' },
                     { id: 3, title: '百年孤独', author: '加西亚·马尔克斯', rating: 5, status: 'unread', review: '' },
+                    { id: 4, title: '围城', author: '钱钟书', rating: 4, status: 'read', review: '婚姻就像围城，城外的人想进去，城里的人想出来。讽刺又现实。' },
+                    { id: 5, title: '挪威的森林', author: '村上春树', rating: 4, status: 'unread', review: '' },
+                    { id: 6, title: '解忧杂货店', author: '东野圭吾', rating: 5, status: 'read', review: '温暖治愈的故事，每个烦恼背后都有动人的联系。' },
+                    { id: 7, title: '人类简史', author: '尤瓦尔·赫拉利', rating: 5, status: 'unread', review: '' },
                 ];
-                this.nextId = 4; // 更新 nextId 以便接下来的添加操作
+                this.nextId = 8; // 更新 nextId，因为现在最大的 id 是 7
             }
-             // 找到最大的ID，确保新ID不重复 (移动到 if/else 外部确保总能执行)
+             // 确认 nextId 计算逻辑在 if/else 之后
              if (this.bookList.length > 0) {
-                 this.nextId = Math.max(...this.bookList.map(b => b.id)) + 1;
+                 // 确保从 localStorage 加载时也能正确设置 nextId
+                 const maxId = Math.max(...this.bookList.map(b => b.id));
+                 this.nextId = maxId >= 1 ? maxId + 1 : 1; // 处理空列表或只有一个元素的情况
              } else {
+                 // 如果 localStorage 为空且没有默认数据（理论上不会进入这里，因为上面 else 分支会赋值）
                  this.nextId = 1;
              }
         },
@@ -144,14 +145,15 @@ const app = createApp({
         // 显示编辑表单
         showEditForm(book) {
             this.isEditing = true;
-            // 创建副本进行编辑，确保 review 也被复制
+            // 确认使用了扩展运算符创建副本，会包含 review
             this.currentBook = { ...book };
             this.showForm = true;
         },
         // 取消表单
         cancelForm() {
             this.showForm = false;
-            this.currentBook = this.getEmptyBook(); // 重置表单，包含 review
+            // 确认调用 getEmptyBook 重置，会包含 review
+            this.currentBook = this.getEmptyBook();
         },
         // 保存书籍（添加或编辑）
         saveBook() {
@@ -165,13 +167,12 @@ const app = createApp({
                 // 编辑
                 const index = this.bookList.findIndex(b => b.id === this.currentBook.id);
                 if (index !== -1) {
-                    // 确保 review 被正确更新
+                    // 确认使用了扩展运算符更新，会包含 review
                     this.bookList.splice(index, 1, { ...this.currentBook });
                 }
             } else {
-                // 添加
                 this.currentBook.id = this.nextId++;
-                 // 确保 review 被正确添加
+                 // 确认使用了扩展运算符添加，会包含 review
                 this.bookList.push({ ...this.currentBook });
             }
             this.cancelForm(); // 保存后关闭并重置表单
