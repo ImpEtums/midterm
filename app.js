@@ -114,7 +114,7 @@ const app = createApp({
                     }
                 });
             } else {
-                // 添加更多初始示例数据和读后感
+                // 添加更多初始示例数据和读后感，包含书名首字相同的书籍
                 this.bookList = [
                     { id: 1, title: '三体', author: '刘慈欣', rating: 5, status: 'read', review: '非常震撼的科幻巨作，对宇宙和人性的深刻思考。' },
                     { id: 2, title: '活着', author: '余华', rating: 4, status: 'read', review: '文字朴实，情感真挚，讲述了小人物在大时代下的坚韧。' },
@@ -123,8 +123,12 @@ const app = createApp({
                     { id: 5, title: '挪威的森林', author: '村上春树', rating: 4, status: 'unread', review: '' },
                     { id: 6, title: '解忧杂货店', author: '东野圭吾', rating: 5, status: 'read', review: '温暖治愈的故事，每个烦恼背后都有动人的联系。' },
                     { id: 7, title: '人类简史', author: '尤瓦尔·赫拉利', rating: 5, status: 'unread', review: '' },
+                    { id: 8, title: '追风筝的人', author: '卡勒德·胡赛尼', rating: 5, status: 'read', review: '关于友情、背叛和救赎，感人至深。' },
+                    { id: 9, title: '追忆似水年华', author: '马塞尔·普鲁斯特', rating: 4, status: 'unread', review: '' }, // 与上一本首字相同
+                    { id: 10, title: '白夜行', author: '东野圭吾', rating: 5, status: 'read', review: '绝望的念想，悲恸的守望。' },
+                    { id: 11, title: '白鹿原', author: '陈忠实', rating: 5, status: 'unread', review: '' }, // 与上一本首字相同
                 ];
-                this.nextId = 8; // 更新 nextId，因为现在最大的 id 是 7
+                this.nextId = 12; // 更新 nextId，因为现在最大的 id 是 11
             }
              // 确认 nextId 计算逻辑在 if/else 之后
              if (this.bookList.length > 0) {
@@ -132,7 +136,7 @@ const app = createApp({
                  const maxId = Math.max(...this.bookList.map(b => b.id));
                  this.nextId = maxId >= 1 ? maxId + 1 : 1; // 处理空列表或只有一个元素的情况
              } else {
-                 // 如果 localStorage 为空且没有默认数据（理论上不会进入这里，因为上面 else 分支会赋值）
+                 // 如果 localStorage 为空且没有默认数据
                  this.nextId = 1;
              }
         },
