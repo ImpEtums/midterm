@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的书单管理</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>{{ pageTitle }}</h1>
+
+        <!-- 添加/编辑书籍表单 -->
+        <div v-if="showForm" class="form-container">
+            <h2>{{ isEditing ? '编辑书籍' : '添加新书' }}</h2>
+            <form @submit.prevent="saveBook">
+                <div>
+                    <label for="title">书名:</label>
+                    <input type="text" id="title" v-model.trim="currentBook.title" required>
+                </div>
+                <div>
+                    <label for="author">作者:</label>
+                    <input type="text" id="author" v-model.trim="currentBook.author" required>
+                </div>
+                <div>
+                    <label for="rating">评分 (1-5):</label>
+                    <input type="number" id="rating" v-model.number="currentBook.rating" min="1" max="5">
+                </div>
+                <div>
+                    <label for="status">状态:</label>
+                    <select id="status" v-model="currentBook.status">
+                        <option value="unread">未读</option>
+                        <option value="read">已读</option>
+                    </select>
+                </div>
+                <button type="submit">保存</button>
+                <button type="button" @click="cancelForm">取消</button>
+            </form>
+        </div>
+
+        <!-- 搜索和筛选 -->
+        <div class="controls" v-if="!showForm">
+            <button @click="showAddForm">添加新书</button>
+            <input type="text" v-model="searchTerm" placeholder="搜索书名或作者...">
+            <select v-model="filterStatus">
+                <option value="all">所有状态</option>
+                <option value="unread">未读</option>
+                <option value="read">已读</option>
+            </select>
+             <select v-model="sortBy">
+                <option value="id">默认排序</option>
+                <option value="title">按书名</option>
+                <option value="author">按作者</option>
+                <option value="rating">按评分</option>
+            </select>
+        </div>
+
+        <!-- 书籍列表 -->
+        <div v-if="!showForm">
+            <p v-if="!filteredAndSortedBooks.length && !searchTerm && filterStatus === 'all'">书单空空如也，快去添加吧！</p>
+            <p v-else-if="!filteredAndSortedBooks.length">没有找到匹配的书籍。</p>
+            <ul v-else class="book-list">
+                <book-item
+                    v-for="book in filteredAndSortedBooks"
+                    :key="book.id"
+                    :book="book"
+                    @toggle-status="toggleStatus"
+                    @delete-book="confirmDelete"
+                    @edit-book="showEditForm"
+                ></book-item>
+            </ul>
+            <div class="summary">
+                <p>总计: {{ totalBooks }} 本</p>
+                <p>已读: {{ readBooksCount }} 本</p>
+                <p>未读: {{ unreadBooksCount }} 本</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Vue.js CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- App Script -->
+    <script src="app.js"></script>
+</body>
+</html>
