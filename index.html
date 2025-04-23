@@ -33,6 +33,10 @@
                         <option value="read">已读</option>
                     </select>
                 </div>
+                <div> <!-- 添加读后感输入区域 -->
+                    <label for="review">读后感:</label>
+                    <textarea id="review" v-model.trim="currentBook.review" rows="4"></textarea>
+                </div>
                 <button type="submit">保存</button>
                 <button type="button" @click="cancelForm">取消</button>
             </form>

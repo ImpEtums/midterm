@@ -1,103 +1,128 @@
 body {
-    font-family: sans-serif;
-    line-height: 1.6;
+    font-family: 'Noto Serif SC', serif; /* 更换为衬线字体，增加文艺感 */
+    line-height: 1.7; /* 稍微增加行高 */
     margin: 20px;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #f5f5dc; /* 米色背景 */
+    color: #5d4037; /* 主要文字颜色 - 棕灰色 */
 }
 
 #app {
     max-width: 800px;
     margin: 0 auto;
-    background: #fff;
-    padding: 20px;
+    background: #ffffff; /* 白色内容区域背景 */
+    padding: 30px; /* 增加内边距 */
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* 柔和阴影 */
+    border: 1px solid #d7ccc8; /* 添加细边框 */
 }
 
 h1 {
     text-align: center;
-    color: #2c3e50;
+    color: #4e342e; /* 深棕色标题 */
+    margin-bottom: 30px; /* 增加标题下边距 */
+    font-weight: 400; /* 字体不过粗 */
 }
 
 .form-container {
-    background: #eee;
-    padding: 15px;
-    margin-bottom: 20px;
+    background: #efebe9; /* 浅棕灰色表单背景 */
+    padding: 20px;
+    margin-bottom: 25px;
     border-radius: 5px;
+    border: 1px solid #d7ccc8; /* 表单边框 */
 }
 
 .form-container h2 {
     margin-top: 0;
-    color: #34495e;
+    margin-bottom: 20px; /* 增加表单标题下边距 */
+    color: #6d4c41; /* 表单标题颜色 */
+    font-weight: 500;
+    text-align: center;
 }
 
 .form-container div {
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* 增加表单项间距 */
 }
 
 .form-container label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px; /* 增加标签下边距 */
     font-weight: bold;
+    color: #795548; /* 标签颜色 */
 }
 
 .form-container input[type="text"],
 .form-container input[type="number"],
-.form-container select {
-    width: calc(100% - 22px); /* Adjust for padding and border */
+.form-container select,
+.form-container textarea { /* 应用到 textarea */
+    width: calc(100% - 24px); /* 调整宽度以适应 padding */
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #c5b9b4; /* 边框颜色 */
     border-radius: 4px;
+    background-color: #fff; /* 输入框背景 */
+    color: #5d4037; /* 输入文字颜色 */
+    font-family: inherit; /* 继承字体 */
+    line-height: 1.5; /* 输入框行高 */
 }
 
+.form-container textarea {
+    resize: vertical; /* 允许垂直调整大小 */
+}
+
+
 .form-container button {
-    padding: 10px 15px;
+    padding: 10px 20px; /* 增加按钮内边距 */
     margin-right: 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    background-color: #3498db;
+    background-color: #8d6e63; /* 主要按钮 - 柔和棕色 */
     color: white;
+    transition: background-color 0.3s ease; /* 添加过渡效果 */
+    font-weight: bold;
 }
 
 .form-container button[type="button"] {
-    background-color: #95a5a6;
+    background-color: #bdbdbd; /* 取消按钮 - 灰色 */
 }
 
 .form-container button:hover {
-    opacity: 0.9;
+    opacity: 0.9; /* 保持悬停效果 */
 }
 
 .controls {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     display: flex;
-    gap: 10px;
+    gap: 15px; /* 增加控件间距 */
     align-items: center;
 }
 
 .controls input[type="text"],
 .controls select {
-    padding: 8px;
-    border: 1px solid #ccc;
+    padding: 10px; /* 统一内边距 */
+    border: 1px solid #c5b9b4;
     border-radius: 4px;
+    background-color: #fff;
+    color: #5d4037;
+    font-family: inherit;
 }
 
 .controls input[type="text"] {
-    flex-grow: 1; /* Allow search input to take more space */
+    flex-grow: 1;
 }
 
-.controls button {
-    padding: 8px 15px;
-    background-color: #2ecc71;
+.controls button { /* 添加新书按钮 */
+    padding: 10px 20px;
+    background-color: #a1887f; /* 浅棕色 */
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
 }
 
 .controls button:hover {
-    background-color: #27ae60;
+    background-color: #8d6e63; /* 悬停变深 */
 }
 
 .book-list {
@@ -108,83 +133,130 @@ h1 {
 
 .book-item {
     background: #fff;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    padding: 15px;
+    border: 1px solid #d7ccc8; /* 统一边框 */
+    margin-bottom: 15px; /* 增加列表项间距 */
+    padding: 20px; /* 增加内边距 */
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    transition: background-color 0.3s ease;
+    align-items: flex-start; /* 顶部对齐，方便看读后感 */
+    transition: background-color 0.3s ease, border-left-color 0.3s ease; /* 添加边框颜色过渡 */
+    border-left: 5px solid transparent; /* 默认透明左边框 */
 }
 
 .book-item.read {
-    background-color: #ecf0f1; /* Light gray for read books */
-    border-left: 5px solid #7f8c8d; /* Gray border for read */
+    background-color: #efebe9; /* 已读背景 */
+    border-left: 5px solid #a1887f; /* 已读边框 - 浅棕 */
 }
 
 .book-item.unread {
-    border-left: 5px solid #3498db; /* Blue border for unread */
+    border-left: 5px solid #81d4fa; /* 未读边框 - 浅蓝 */
 }
 
+.book-info {
+    flex-grow: 1; /* 让信息区域占据更多空间 */
+    margin-right: 15px; /* 与按钮区域的间距 */
+}
+
+
 .book-info h3 {
-    margin: 0 0 5px 0;
-    color: #2c3e50;
+    margin: 0 0 8px 0; /* 增加标题下边距 */
+    color: #5d4037; /* 书名颜色 */
+    font-weight: 500;
 }
 
 .book-info p {
-    margin: 3px 0;
-    color: #555;
+    margin: 5px 0; /* 增加段落间距 */
+    color: #795548; /* 信息文字颜色 */
+    font-size: 0.95em; /* 稍小字体 */
+    line-height: 1.6;
 }
+
+.book-review { /* 读后感样式 */
+    margin-top: 10px !important; /* 与上方内容间距 */
+    padding-top: 10px;
+    border-top: 1px dashed #d7ccc8; /* 分隔线 */
+    color: #6d4c41; /* 读后感文字颜色 */
+    font-style: italic; /* 斜体 */
+    font-size: 0.9em !important; /* 更小字体 */
+    white-space: pre-wrap; /* 保留换行和空格 */
+}
+
 
 .status-text {
     font-weight: bold;
+    padding: 2px 6px; /* 添加一点内边距 */
+    border-radius: 3px; /* 圆角 */
+    font-size: 0.85em;
 }
 
 .book-item.read .status-text {
-    color: #7f8c8d;
+    color: #8d6e63; /* 已读状态文字 */
+    background-color: #d7ccc8; /* 已读状态背景 */
 }
 
 .book-item.unread .status-text {
-    color: #3498db;
+    color: #0277bd; /* 未读状态文字 - 稍深蓝 */
+    background-color: #b3e5fc; /* 未读状态背景 - 浅蓝 */
 }
 
+.book-actions {
+    display: flex;
+    flex-direction: column; /* 垂直排列按钮 */
+    gap: 8px; /* 按钮间距 */
+    align-items: flex-end; /* 右对齐 */
+    flex-shrink: 0; /* 防止按钮被压缩 */
+}
+
+
 .book-actions button {
-    margin-left: 5px;
-    padding: 5px 10px;
+    margin-left: 0; /* 移除左边距，因为用了 gap */
+    padding: 6px 12px; /* 调整按钮大小 */
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    font-size: 0.9em;
-}
-
-.book-actions button:first-child {
-    background-color: #f39c12; /* Orange for toggle status */
+    font-size: 0.85em; /* 稍小字体 */
     color: white;
+    transition: background-color 0.2s ease;
+    min-width: 80px; /* 按钮最小宽度 */
+    text-align: center;
 }
 
-.book-actions button:nth-child(2) {
-    background-color: #3498db; /* Blue for edit */
-    color: white;
+.book-actions button:first-child { /* 切换状态按钮 */
+    background-color: #ffab91; /* 浅珊瑚色/橙色 */
+}
+.book-actions button:first-child:hover {
+    background-color: #ff8a65;
 }
 
-.book-actions .delete-btn {
-    background-color: #e74c3c; /* Red for delete */
-    color: white;
+.book-actions button:nth-child(2) { /* 编辑按钮 */
+    background-color: #81d4fa; /* 浅蓝色 */
+}
+.book-actions button:nth-child(2):hover {
+    background-color: #4fc3f7;
 }
 
-.book-actions button:hover {
+.book-actions .delete-btn { /* 删除按钮 */
+    background-color: #e57373; /* 浅红色 */
+}
+.book-actions .delete-btn:hover {
+    background-color: #ef5350;
+}
+
+/* 移除旧的悬停透明度效果 */
+/* .book-actions button:hover {
     opacity: 0.8;
-}
+} */
 
 .summary {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
+    margin-top: 30px; /* 增加汇总区域上边距 */
+    padding-top: 20px;
+    border-top: 1px solid #d7ccc8; /* 分隔线 */
     text-align: right;
-    color: #555;
+    color: #795548; /* 汇总文字颜色 */
 }
 
 .summary p {
-    margin: 5px 0;
+    margin: 8px 0; /* 增加汇总行间距 */
+    font-size: 0.95em;
 }
